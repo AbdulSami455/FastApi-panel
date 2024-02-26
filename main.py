@@ -35,7 +35,6 @@ def register(
     password: str = Form(...),
     phone_number: str = Form(...),
 ):
-
   return RedirectResponse("/registration-successful")
 
 @app.get("/registration-successful", response_class=HTMLResponse)
