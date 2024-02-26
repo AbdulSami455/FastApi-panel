@@ -2,14 +2,45 @@ from typing import List
 from fastapi import Depends, HTTPException, FastAPI
 import sqlalchemy.orm as _orm
 import fastapi as _fastapi
+from fastapi import HTTPException, Form
+from fastapi.responses import HTMLResponse,RedirectResponse
+from fastapi.templating import Jinja2Templates
 
 import services as _services
 import schemas as _schemas
+
+templates = Jinja2Templates(directory="templates")
 
 app = FastAPI(orm_mode="from_attributes")
 
 _services.create_database()
 
+
+@app.get("/login", response_class=HTMLResponse)
+def login_page(request: _fastapi.Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+@app.post("/login", response_class=HTMLResponse)
+def login(request: _fastapi.Request, email: str = Form(...), password: str = Form(...)):
+    return templates.TemplateResponse("login.html", {"request": request, "message": "Login successful"})
+@app.get("/register", response_class=HTMLResponse)
+def register_page(request: _fastapi.Request):
+    return templates.TemplateResponse("register.html", {"request": request})
+
+@app.post("/register", response_class=HTMLResponse)
+def register(
+    request: _fastapi.Request,
+    full_name: str = Form(...),
+    email: str = Form(...),
+    password: str = Form(...),
+    phone_number: str = Form(...),
+):
+
+  return RedirectResponse("/registration-successful")
+
+@app.get("/registration-successful", response_class=HTMLResponse)
+def registration_successful(request: _fastapi.Request):
+    return templates.TemplateResponse("registration_successful.html", {"request": request, "message": "Registration successful"})
 @app.post("/users/", response_model=_schemas.User)
 def create_user(user: _schemas.UserCreate, db: _orm.Session = Depends(_services.get_db)):
     db_user = _services.get_user_by_email(db=db, email=user.email)
