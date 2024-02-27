@@ -142,3 +142,29 @@ def delete_user(user_id: int):
     cn.commit()
     print(f"User with user_id {user_id} deleted successfully.")
 
+def get_titles_and_contents_by_user_id_articles(user_id: int) -> List[dict]:
+    query = '''
+        SELECT title, content FROM articles
+        WHERE user_id = ?
+    '''
+    cu.execute(query, (user_id,))
+    articles = cu.fetchall()
+
+    articles_list = [
+        {
+            "title": article[0],
+            "content": article[1],
+        }
+        for article in articles
+    ]
+
+    return articles_list
+
+def delete_articles_by_user_id(user_id: int):
+    query = '''
+        DELETE FROM articles
+        WHERE user_id = ?
+    '''
+    cu.execute(query, (user_id,))
+    cn.commit()
+    print(f"All articles by user_id {user_id} deleted successfully.")

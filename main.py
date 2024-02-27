@@ -3,10 +3,11 @@ from fastapi import Depends, HTTPException, FastAPI,Query
 #import sqlalchemy.orm as _orm
 import fastapi as _fastapi
 from fastapi import HTTPException, Form
-from fastapi.responses import HTMLResponse,RedirectResponse
+from fastapi.responses import HTMLResponse,RedirectResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 import operations as op
 from fastapi.security import APIKeyQuery
+from typing import List, Optional
 
 
 templates = Jinja2Templates(directory="templates")
@@ -104,3 +105,45 @@ def admin_registration_successful(request: _fastapi.Request):
                                       {"request": request, "message": "Admin Registration successful"})
 
 
+@app.get("/usernames", response_class=JSONResponse)
+def get_all_usernames():
+    usernames = op.getallusernames()
+    return JSONResponse(content={"usernames": usernames}, status_code=200)
+
+
+@app.get("/user_id/{username}", response_class=JSONResponse)
+def get_user_id_by_username(username: str):
+    user_id = op.getuser_id_byusername(username)
+    if user_id is not None:
+        return JSONResponse(content={"user_id": user_id}, status_code=200)
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
+
+
+@app.get("/user/{user_id}/posts", response_class=JSONResponse)
+def get_titles_and_contents_by_user(user_id: int):
+    posts = op.get_titles_and_contents_by_user_id(user_id)
+    return JSONResponse(content={"posts": posts}, status_code=200)
+
+
+@app.delete("/user/{user_id}/posts", response_class=JSONResponse)
+def delete_posts_by_user(user_id: int):
+    op.deleteposts_by_user_id(user_id)
+    return JSONResponse(content={"message": f"All posts by user_id {user_id} deleted successfully."}, status_code=200)
+
+
+@app.delete("/user/{user_id}", response_class=JSONResponse)
+def delete_user_by_id(user_id: int):
+    op.delete_user(user_id)
+    return JSONResponse(content={"message": f"User with user_id {user_id} deleted successfully."}, status_code=200)
+
+
+@app.get("/articles/{user_id}", response_class=JSONResponse)
+def get_articles_by_user_id(user_id: int):
+    articles = op.get_titles_and_contents_by_user_id_articles(user_id)
+    return JSONResponse(content=articles)
+
+@app.delete("/articles/{user_id}")
+def delete_articles_by_user_id_endpoint(user_id: int):
+    op.delete_articles_by_user_id(user_id)
+    return {"message": f"All articles for user_id {user_id} deleted successfully."}
