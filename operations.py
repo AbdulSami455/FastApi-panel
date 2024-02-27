@@ -1,5 +1,6 @@
 from database import cursor as cu, conn as cn
 import bcrypt
+from typing import List, Optional
 
 
 def check_user_email_exists(email):
@@ -83,5 +84,42 @@ def check_admin_credentials(admin_email, password):
 #add_user("sami","sasla","sasa","00202020")
 
 
+def getallusernames() -> List[str]:
+    query = '''
+        SELECT username FROM users
+    '''
+    cu.execute(query)
+    usernames = cu.fetchall()
+
+    userlist = [username[0] for username in usernames]
+
+    return userlist
 
 
+def getuser_id_byusername(username: str) -> Optional[int]:
+    query = '''
+        SELECT user_id FROM users
+        WHERE username = ?
+    '''
+    cu.execute(query, (username,))
+    result = cu.fetchone()
+
+    return result[0] if result else None
+
+def get_titles_and_contents_by_user_id(user_id: int) -> List[dict]:
+    query = '''
+        SELECT title, content FROM posts
+        WHERE user_id = ?
+    '''
+    cu.execute(query, (user_id,))
+    posts = cu.fetchall()
+
+    posts_list = [
+        {
+            "title": post[0],
+            "content": post[1],
+        }
+        for post in posts
+    ]
+
+    return posts_list
