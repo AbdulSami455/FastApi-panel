@@ -20,11 +20,11 @@ def login_page(request: _fastapi.Request):
 @app.post("/login", response_class=HTMLResponse)
 def login(request: _fastapi.Request, email: str = Form(...), password: str = Form(...)):
     if op.check_user_credentials(email, password):
-        # If credentials are correct, redirect to /register or any other endpoint
+        # If credentils are correct, redirect to register page
         print("Crendtails are true")
         return RedirectResponse("/register")
     else:
-        # If credentials are incorrect, reload the login page
+        # If credentials are incorrect, reload login page
         print("Credentails are false")
         return templates.TemplateResponse("login.html", {"request": request, "message": "Invalid email or password"})
 @app.get("/register", response_class=HTMLResponse)
@@ -39,14 +39,12 @@ def register(
     phone_number: str = Form(...),
 ):
     if op.check_user_email_exists(email):
-        # If the email already exists, reload the registration page with an error message
+        # If the email already exists, reload the registration page
         return templates.TemplateResponse("register.html", {"request": request, "message": "Email already exists. Please choose a different email."})
 
     op.add_user(full_name, email, password, phone_number)
-    # Process the form data and get registration results
     registration_results = {"full_name": full_name, "email": email, "phone_number": phone_number}
 
-    # Pass the data to the template
     return templates.TemplateResponse("registration_successful.html", {"request": request, **registration_results})
 @app.get("/registration-successful", response_class=HTMLResponse)
 def registration_successful(request: _fastapi.Request):
@@ -61,7 +59,7 @@ def admin_login_page(request: _fastapi.Request):
 @app.post("/admin/login", response_class=HTMLResponse)
 def admin_login(request: _fastapi.Request, email: str = Form(...), password: str = Form(...)):
     if op.check_admin_credentials(email, password):
-        # If credentials are correct, redirect to /admin/register or any other endpoint
+        # Direct to Admin Panel if credentials are correct
         print("Admin Credentials are true")
         return templates.TemplateResponse("admin_panel.html", {"request": request})
     else:
@@ -84,14 +82,11 @@ def admin_register(
         password: str = Form(...),
 ):
     if op.check_admin_email_exists(email):
-        # If the email already exists, reload the admin registration page with an error message
         return templates.TemplateResponse("admin_register.html", {"request": request, "message": "Email already exists for an admin. Please choose a different email."})
 
     op.add_admin(username, email, password)
-    # Process the form data and get registration results
     registration_results = {"username": username, "email": email}
 
-    # Pass the data to the template
     return templates.TemplateResponse("admin_registration_successful.html",
                                       {"request": request, **registration_results})
 

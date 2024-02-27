@@ -67,7 +67,7 @@ def add_admin(username, email, password):
         print("Email already exists for an admin. Please choose a different email.")
 
 def check_admin_credentials(admin_email, password):
-    # Fetch the hashed password from the database for the provided admin_email
+    # Fetch the hashed password from the database for the provided admin-email
     query = '''
         SELECT hashed_password FROM admins
         WHERE admin_email = ?
@@ -84,5 +84,4 @@ def check_admin_credentials(admin_email, password):
 
 
 
-# Example of using the function
 
