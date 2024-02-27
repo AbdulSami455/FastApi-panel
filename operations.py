@@ -123,3 +123,4 @@ def get_titles_and_contents_by_user_id(user_id: int) -> List[dict]:
     ]
 
     return posts_list
+
