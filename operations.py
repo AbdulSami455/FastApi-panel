@@ -124,3 +124,21 @@ def get_titles_and_contents_by_user_id(user_id: int) -> List[dict]:
 
     return posts_list
 
+def deleteposts_by_user_id(user_id: int):
+    query = '''
+        DELETE FROM posts
+        WHERE user_id = ?
+    '''
+    cu.execute(query, (user_id,))
+    cn.commit()
+    print(f"All posts by user_id {user_id} deleted successfully.")
+
+def delete_user(user_id: int):
+    query = '''
+        DELETE FROM users
+        WHERE user_id = ?
+    '''
+    cu.execute(query, (user_id,))
+    cn.commit()
+    print(f"User with user_id {user_id} deleted successfully.")
+
