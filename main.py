@@ -1,11 +1,12 @@
 from typing import List
-from fastapi import Depends, HTTPException, FastAPI
+from fastapi import Depends, HTTPException, FastAPI,Query
 #import sqlalchemy.orm as _orm
 import fastapi as _fastapi
 from fastapi import HTTPException, Form
 from fastapi.responses import HTMLResponse,RedirectResponse
 from fastapi.templating import Jinja2Templates
 import operations as op
+from fastapi.security import APIKeyQuery
 
 
 templates = Jinja2Templates(directory="templates")
@@ -67,19 +68,27 @@ def admin_login(request: _fastapi.Request, email: str = Form(...), password: str
         print("Admin Credentials are false")
         return templates.TemplateResponse("admin_login.html",
                                           {"request": request, "message": "Invalid email or password"})
+API_KEY_QUERY_PARAMETER = APIKeyQuery(name="key", auto_error=False)
 
 
-@app.get("/admin/register", response_class=HTMLResponse)
+SECURITY_KEY = "sami1234"
+
+def verify_security_key(api_key: str = Depends(API_KEY_QUERY_PARAMETER)):
+    if api_key is None or api_key != SECURITY_KEY:
+        raise HTTPException(status_code=401, detail="Invalid API Key")
+    return api_key
+
+@app.get("/admin/register", response_class=HTMLResponse, dependencies=[Depends(verify_security_key)])
 def admin_register_page(request: _fastapi.Request):
     return templates.TemplateResponse("admin_register.html", {"request": request})
 
-
-@app.post("/admin/register", response_class=HTMLResponse)
+@app.post("/admin/register", response_class=HTMLResponse, dependencies=[Depends(verify_security_key)])
 def admin_register(
         request: _fastapi.Request,
         username: str = Form(...),
         email: str = Form(...),
         password: str = Form(...),
+        key: str = Depends(verify_security_key),  # Ensure key is present and valid
 ):
     if op.check_admin_email_exists(email):
         return templates.TemplateResponse("admin_register.html", {"request": request, "message": "Email already exists for an admin. Please choose a different email."})
@@ -89,8 +98,9 @@ def admin_register(
 
     return templates.TemplateResponse("admin_registration_successful.html",
                                       {"request": request, **registration_results})
-
 @app.get("/admin/registration-successful", response_class=HTMLResponse)
 def admin_registration_successful(request: _fastapi.Request):
     return templates.TemplateResponse("admin_registration_successful.html",
                                       {"request": request, "message": "Admin Registration successful"})
+
+
