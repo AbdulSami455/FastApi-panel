@@ -147,3 +147,12 @@ def get_articles_by_user_id(user_id: int):
 def delete_articles_by_user_id_endpoint(user_id: int):
     op.delete_articles_by_user_id(user_id)
     return {"message": f"All articles for user_id {user_id} deleted successfully."}
+
+@app.delete("/posts/{post_id}")
+def deletepostby_id(post_id: int ):
+    op.deletepost(post_id)
+
+@app.delete("/articles/{article_id}")
+def deletearticleby_id(article_id:int):
+    op.deletearticle(article_id)
+

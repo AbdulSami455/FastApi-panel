@@ -168,3 +168,21 @@ def delete_articles_by_user_id(user_id: int):
     cu.execute(query, (user_id,))
     cn.commit()
     print(f"All articles by user_id {user_id} deleted successfully.")
+
+
+def deletepost(post_id:int):
+    query='''
+    DELETE FROM posts 
+    where post_id = ?
+    '''
+    cu.execute(query,(post_id,))
+    cu.commit()
+
+def deletearticle(article_id:int):
+    query='''
+    DELETE FROM articles
+    where article_id = ?
+    '''
+    cu.execute(query,(article_id,))
+    cu.commit()
+
