@@ -12,7 +12,17 @@ from typing import List, Optional
 
 templates = Jinja2Templates(directory="templates")
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/login", response_class=HTMLResponse)
