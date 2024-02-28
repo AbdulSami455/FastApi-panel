@@ -195,3 +195,15 @@ def addposts(post_id,user_id,title,content):
     cn.commit()
     print("User added successfully.")
 #addposts(1,1,"sami","samisiking")
+
+def addarticles(article_id,user_id,title,content):
+    query = '''
+                     INSERT INTO articles (article_id, user_id, title, content)
+                     VALUES (?, ?, ?, ?)
+                 '''
+    cu.execute(query, (article_id, user_id, title, content))
+    cn.commit()
+    print("User added successfully.")
+
+
+
