@@ -187,3 +187,50 @@ def deletearticle(article_id:int):
     '''
     cu.execute(query,(article_id,))
     cn.commit()
+
+def add_post(user_id, title, content):
+    query = '''
+        INSERT INTO posts (user_id, title, content)
+        VALUES (?, ?, ?)
+    '''
+    cu.execute(query, (user_id, title, content))
+    cn.commit()
+    print("Post added successfully.")
+
+def add_article(user_id, title, content):
+    query = '''
+        INSERT INTO articles (user_id, title, content)
+        VALUES (?, ?, ?)
+    '''
+    cu.execute(query, (user_id, title, content))
+    cn.commit()
+    print("Article added successfully.")
+
+def edit_post(post_id, title, content):
+    query = '''
+        UPDATE posts
+        SET title = ?, content = ?
+        WHERE post_id = ?
+    '''
+    cu.execute(query, (title, content, post_id))
+    cn.commit()
+    print(f"Post with post_id {post_id} edited successfully.")
+
+def edit_article(article_id, title, content):
+    query = '''
+        UPDATE articles
+        SET title = ?, content = ?
+        WHERE article_id = ?
+    '''
+    cu.execute(query, (title, content, article_id))
+    cn.commit()
+    print(f"Article with article_id {article_id} edited successfully.")
+
+def delete_user(user_id: int):
+    query = '''
+        DELETE FROM users
+        WHERE user_id = ?
+    '''
+    cu.execute(query, (user_id,))
+    cn.commit()
+    print(f"User with user_id {user_id} deleted successfully.")
