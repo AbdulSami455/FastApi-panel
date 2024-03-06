@@ -93,13 +93,12 @@ def verify_security_key(api_key: str = Depends(API_KEY_QUERY_PARAMETER)):
 def admin_register_page(request: _fastapi.Request):
     return templates.TemplateResponse("admin_register.html", {"request": request})
 
-@app.post("/admin/register", response_class=HTMLResponse, dependencies=[Depends(verify_security_key)])
+@app.post("/admin/register", response_class=HTMLResponse)
 def admin_register(
         request: _fastapi.Request,
         username: str = Form(...),
         email: str = Form(...),
         password: str = Form(...),
-        key: str = Depends(verify_security_key),  # Ensure key is present and valid
 ):
     if op.check_admin_email_exists(email):
         return templates.TemplateResponse("admin_register.html", {"request": request, "message": "Email already exists for an admin. Please choose a different email."})
@@ -165,4 +164,3 @@ def deletepostby_id(post_id: int ):
 @app.delete("/articles/{article_id}")
 def deletearticleby_id(article_id:int):
     op.deletearticle(article_id)
-
