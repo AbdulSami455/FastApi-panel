@@ -108,7 +108,7 @@ def getuser_id_byusername(username: str) -> Optional[int]:
 
 def get_titles_and_contents_by_user_id(user_id: int) -> List[dict]:
     query = '''
-        SELECT title, content FROM posts
+        SELECT post_id, title, content FROM posts
         WHERE user_id = ?
     '''
     cu.execute(query, (user_id,))
@@ -116,8 +116,9 @@ def get_titles_and_contents_by_user_id(user_id: int) -> List[dict]:
 
     posts_list = [
         {
-            "title": post[0],
-            "content": post[1],
+            "id": post[0], 
+            "title": post[1],
+            "content": post[2],
         }
         for post in posts
     ]
@@ -144,7 +145,7 @@ def delete_user(user_id: int):
 
 def get_titles_and_contents_by_user_id_articles(user_id: int) -> List[dict]:
     query = '''
-        SELECT title, content FROM articles
+        SELECT article_id, title, content FROM articles
         WHERE user_id = ?
     '''
     cu.execute(query, (user_id,))
@@ -152,8 +153,9 @@ def get_titles_and_contents_by_user_id_articles(user_id: int) -> List[dict]:
 
     articles_list = [
         {
-            "title": article[0],
-            "content": article[1],
+            "id": article[0], 
+            "title": article[1],
+            "content": article[2],
         }
         for article in articles
     ]
@@ -176,7 +178,7 @@ def deletepost(post_id:int):
     where post_id = ?
     '''
     cu.execute(query,(post_id,))
-    cu.commit()
+    cn.commit()
 
 def deletearticle(article_id:int):
     query='''
@@ -184,26 +186,4 @@ def deletearticle(article_id:int):
     where article_id = ?
     '''
     cu.execute(query,(article_id,))
-    cu.commit()
-
-def addposts(post_id,user_id,title,content):
-    query = '''
-                 INSERT INTO posts (post_id, user_id, title, content)
-                 VALUES (?, ?, ?, ?)
-             '''
-    cu.execute(query, (post_id, user_id, title, content))
     cn.commit()
-    print("User added successfully.")
-#addposts(1,1,"sami","samisiking")
-
-def addarticles(article_id,user_id,title,content):
-    query = '''
-                     INSERT INTO articles (article_id, user_id, title, content)
-                     VALUES (?, ?, ?, ?)
-                 '''
-    cu.execute(query, (article_id, user_id, title, content))
-    cn.commit()
-    print("User added successfully.")
-
-
-
