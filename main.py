@@ -30,16 +30,26 @@ app.add_middleware(
 def login_page(request: _fastapi.Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
+@app.get("/user_page/{user_id}", response_class=HTMLResponse)
+def user_page(request: _fastapi.Request, user_id: int):
+    print("hello")
+    # Fetch user details or any other necessary data based on user_id
+    # Render the user page template with the fetched details
+    return templates.TemplateResponse("user_page.html", {"request": request, "user_id": user_id})
+
 @app.post("/login", response_class=HTMLResponse)
 def login(request: _fastapi.Request, email: str = Form(...), password: str = Form(...)):
-    if op.check_user_credentials(email, password):
+ user_id = op.check_user_credentials(email, password)
+ print(user_id)
+ if user_id is not False:
         # If credentils are correct, redirect to register page
-        print("Crendtails are true")
-        return RedirectResponse("/register")
-    else:
+    print("Crendtails are true")
+    return RedirectResponse("/user_page/{}".format(user_id),  status_code=303)
+
+ else:
         # If credentials are incorrect, reload login page
-        print("Credentails are false")
-        return templates.TemplateResponse("login.html", {"request": request, "message": "Invalid email or password"})
+    print("Credentails are false")
+    return templates.TemplateResponse("login.html", {"request": request, "message": "Invalid email or password"})
 @app.get("/register", response_class=HTMLResponse)
 def register_page(request: _fastapi.Request):
     return templates.TemplateResponse("register.html", {"request": request})

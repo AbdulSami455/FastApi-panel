@@ -7,7 +7,7 @@ def check_user_email_exists(email):
     # Check if the email exists in the users table
     query_user = '''
         SELECT email FROM users
-        WHERE email = ?
+        WHERE email = %s
     '''
     cu.execute(query_user, (email,))
     user_result = cu.fetchone()
@@ -19,7 +19,7 @@ def check_admin_email_exists(email):
     # Check if the email exists in the admins table
     query_admin = '''
         SELECT admin_email FROM admins
-        WHERE admin_email = ?
+        WHERE admin_email = %s
     '''
     cu.execute(query_admin, (email,))
     admin_result = cu.fetchone()
@@ -32,7 +32,7 @@ def add_user(username, email, password, phone_number):
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         query = '''
                INSERT INTO users (username, hashed_password, phone_number, email)
-               VALUES (?, ?, ?, ?)
+               VALUES (%s, %s, %s, %s)
            '''
         cu.execute(query, (username, hashed_password, phone_number, email))
         cn.commit()
@@ -42,16 +42,17 @@ def add_user(username, email, password, phone_number):
 
 def check_user_credentials(email, password):
     query = '''
-        SELECT hashed_password FROM users
-        WHERE email = ?
+        SELECT user_id, hashed_password FROM users
+        WHERE email = %s
     '''
     cu.execute(query, (email,))
     result = cu.fetchone()
 
     if result:
         # If user with the provided email exists, check the password
-        hashed_password_from_db = result[0]
-        return bcrypt.checkpw(password.encode('utf-8'), hashed_password_from_db)
+        hashed_password_from_db = result[1].encode('utf-8')
+        if bcrypt.checkpw(password.encode('utf-8'), hashed_password_from_db): 
+            return result[0]
 
     return False
 def add_admin(username, email, password):
@@ -59,7 +60,7 @@ def add_admin(username, email, password):
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         query = '''
                INSERT INTO admins (username, admin_email, hashed_password)
-               VALUES (?, ?, ?)
+               VALUES (%s, %s, %s)
            '''
         cu.execute(query, (username, email, hashed_password))
         cn.commit()
@@ -71,7 +72,7 @@ def check_admin_credentials(admin_email, password):
     # Fetch the hashed password from the database for the provided admin-email
     query = '''
         SELECT hashed_password FROM admins
-        WHERE admin_email = ?
+        WHERE admin_email = %s
     '''
     cu.execute(query, (admin_email,))
     result = cu.fetchone()
@@ -99,7 +100,7 @@ def getallusernames() -> List[str]:
 def getuser_id_byusername(username: str) -> Optional[int]:
     query = '''
         SELECT user_id FROM users
-        WHERE username = ?
+        WHERE username = %s
     '''
     cu.execute(query, (username,))
     result = cu.fetchone()
@@ -109,7 +110,7 @@ def getuser_id_byusername(username: str) -> Optional[int]:
 def get_titles_and_contents_by_user_id(user_id: int) -> List[dict]:
     query = '''
         SELECT post_id, title, content FROM posts
-        WHERE user_id = ?
+        WHERE user_id = %d
     '''
     cu.execute(query, (user_id,))
     posts = cu.fetchall()
@@ -128,7 +129,7 @@ def get_titles_and_contents_by_user_id(user_id: int) -> List[dict]:
 def deleteposts_by_user_id(user_id: int):
     query = '''
         DELETE FROM posts
-        WHERE user_id = ?
+        WHERE user_id = %d
     '''
     cu.execute(query, (user_id,))
     cn.commit()
@@ -137,7 +138,7 @@ def deleteposts_by_user_id(user_id: int):
 def delete_user(user_id: int):
     query = '''
         DELETE FROM users
-        WHERE user_id = ?
+        WHERE user_id = %d
     '''
     cu.execute(query, (user_id,))
     cn.commit()
@@ -146,7 +147,7 @@ def delete_user(user_id: int):
 def get_titles_and_contents_by_user_id_articles(user_id: int) -> List[dict]:
     query = '''
         SELECT article_id, title, content FROM articles
-        WHERE user_id = ?
+        WHERE user_id = %d
     '''
     cu.execute(query, (user_id,))
     articles = cu.fetchall()
@@ -165,7 +166,7 @@ def get_titles_and_contents_by_user_id_articles(user_id: int) -> List[dict]:
 def delete_articles_by_user_id(user_id: int):
     query = '''
         DELETE FROM articles
-        WHERE user_id = ?
+        WHERE user_id = %d
     '''
     cu.execute(query, (user_id,))
     cn.commit()
@@ -175,7 +176,7 @@ def delete_articles_by_user_id(user_id: int):
 def deletepost(post_id:int):
     query='''
     DELETE FROM posts 
-    where post_id = ?
+    where post_id = %d
     '''
     cu.execute(query,(post_id,))
     cn.commit()
@@ -183,7 +184,7 @@ def deletepost(post_id:int):
 def deletearticle(article_id:int):
     query='''
     DELETE FROM articles
-    where article_id = ?
+    where article_id = %d
     '''
     cu.execute(query,(article_id,))
     cn.commit()
@@ -191,7 +192,7 @@ def deletearticle(article_id:int):
 def add_post(user_id, title, content):
     query = '''
         INSERT INTO posts (user_id, title, content)
-        VALUES (?, ?, ?)
+        VALUES (%d, %s, %s)
     '''
     cu.execute(query, (user_id, title, content))
     cn.commit()
@@ -200,7 +201,7 @@ def add_post(user_id, title, content):
 def add_article(user_id, title, content):
     query = '''
         INSERT INTO articles (user_id, title, content)
-        VALUES (?, ?, ?)
+        VALUES (%d, %s, %s)
     '''
     cu.execute(query, (user_id, title, content))
     cn.commit()
@@ -209,8 +210,8 @@ def add_article(user_id, title, content):
 def edit_post(post_id, title, content):
     query = '''
         UPDATE posts
-        SET title = ?, content = ?
-        WHERE post_id = ?
+        SET title = %s, content = %s
+        WHERE post_id = %d
     '''
     cu.execute(query, (title, content, post_id))
     cn.commit()
@@ -219,8 +220,8 @@ def edit_post(post_id, title, content):
 def edit_article(article_id, title, content):
     query = '''
         UPDATE articles
-        SET title = ?, content = ?
-        WHERE article_id = ?
+        SET title = %s, content = %s
+        WHERE article_id = %d
     '''
     cu.execute(query, (title, content, article_id))
     cn.commit()
@@ -229,7 +230,7 @@ def edit_article(article_id, title, content):
 def delete_user(user_id: int):
     query = '''
         DELETE FROM users
-        WHERE user_id = ?
+        WHERE user_id = %d
     '''
     cu.execute(query, (user_id,))
     cn.commit()
