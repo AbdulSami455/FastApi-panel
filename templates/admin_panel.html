@@ -40,7 +40,7 @@
     <script>
       const delPost = async (post_id) => {
         console.log(post_id);
-        let response = await fetch(`http://localhost:8000/posts/${post_id}`, {
+        let response = await fetch(`http://localhost:8000/posts/post/${post_id}`, {
           method: "DELETE",
         });
         response = await response.json();
@@ -48,7 +48,7 @@
       const delArticle = async (article_id) => {
         console.log(article_id);
         let response = await fetch(
-          `http://localhost:8000/articles/${article_id}`,
+          `http://localhost:8000/articles/article/${article_id}`,
           {
             method: "DELETE",
           }

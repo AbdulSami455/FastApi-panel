@@ -258,7 +258,7 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            posts = data;
+            posts = data.posts;
             fetch(`http://localhost:8000/articles/${userId}`, {
               method: "GET",
             })
@@ -296,7 +296,6 @@
             );
             articlesContainer.appendChild(articleElement);
           });
-
           // Display posts
           posts.forEach((post) => {
             const postElement = createArticleOrPostElement(post, "post");
@@ -306,9 +305,9 @@
           // Event delegation for delete and edit buttons
           document.addEventListener("click", function (event) {
             const target = event.target;
-
             // Check if the clicked element is a delete or edit button
             if (target.classList.contains("deleteButton")) {
+              console.log("delete called");
               const id = target.getAttribute("data-id");
               const type = target.getAttribute("data-type");
               deleteItem(id, type);
@@ -334,24 +333,33 @@
             const updatedContent = document.getElementById("editContent").value;
 
             // Update the item data with the new values
-            itemToEdit.title = updatedTitle;
-            itemToEdit.content = updatedContent;
+            // itemToEdit.title = updatedTitle;
+            // itemToEdit.content = updatedContent;
 
             fetch(`http://localhost:8000/edit-${edittype}/${editid}`, {
               method: "PUT",
               headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/x-www-form-urlencoded",
               },
-              body: JSON.stringify({
-                id: id,
+              body: new URLSearchParams({
                 title: updatedTitle,
                 content: updatedContent,
               }),
-            }).then((response) => response.json());
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Failed to edit post");
+                }
+                return response.json();
+              })
+              .then((data) => {
+                console.log(data);
+              })
+              .catch((error) => console.error("Error editing post:", error));
 
             // Perform the update operation using your API or other methods
             // For example, you can send a request to update the item on the server
-
+			  window.location.reload(); 
             // Close the edit modal
             document.getElementById("editModal").style.display = "none";
           });
@@ -383,9 +391,13 @@
         }
 
         function deleteItem(id, type) {
-          fetch(`http://localhost:8000/${type}s/${id}`, {
+          console.log(id);
+          fetch(`http://localhost:8000/${type}s/${type}/${id}`, {
             method: "DELETE",
-          }).then((response) => response.json());
+          })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .then((error) => console.log(error));
 
           window.location.reload();
         }
@@ -429,9 +441,9 @@
             fetch(`http://localhost:8000/add-post`, {
               method: "POST",
               headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/x-www-form-urlencoded",
               },
-              body: JSON.stringify({
+              body: new URLSearchParams({
                 user_id: userId,
                 title: title,
                 content: content,
@@ -440,7 +452,8 @@
               .then((response) => response.json())
               .then((data) => {
                 console.log(data);
-              });
+              })
+              .then((error) => console.log(error));
 
             // Clear input fields
             document.getElementById("newPostTitle").value = "";
@@ -463,9 +476,9 @@
             fetch(`http://localhost:8000/add-article`, {
               method: "POST",
               headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/x-www-form-urlencoded",
               },
-              body: JSON.stringify({
+              body: new URLSearchParams({
                 user_id: userId,
                 title: title,
                 content: content,
