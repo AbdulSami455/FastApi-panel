@@ -110,7 +110,7 @@ def getuser_id_byusername(username: str) -> Optional[int]:
 def get_titles_and_contents_by_user_id(user_id: int) -> List[dict]:
     query = '''
         SELECT post_id, title, content FROM posts
-        WHERE user_id = %d
+        WHERE user_id = %s
     '''
     cu.execute(query, (user_id,))
     posts = cu.fetchall()
@@ -147,7 +147,7 @@ def delete_user(user_id: int):
 def get_titles_and_contents_by_user_id_articles(user_id: int) -> List[dict]:
     query = '''
         SELECT article_id, title, content FROM articles
-        WHERE user_id = %d
+        WHERE user_id = %s
     '''
     cu.execute(query, (user_id,))
     articles = cu.fetchall()
@@ -192,7 +192,7 @@ def deletearticle(article_id:int):
 def add_post(user_id, title, content):
     query = '''
         INSERT INTO posts (user_id, title, content)
-        VALUES (%d, %s, %s)
+        VALUES (%s, %s, %s)
     '''
     cu.execute(query, (user_id, title, content))
     cn.commit()
@@ -201,7 +201,7 @@ def add_post(user_id, title, content):
 def add_article(user_id, title, content):
     query = '''
         INSERT INTO articles (user_id, title, content)
-        VALUES (%d, %s, %s)
+        VALUES (%s, %s, %s)
     '''
     cu.execute(query, (user_id, title, content))
     cn.commit()
@@ -211,7 +211,7 @@ def edit_post(post_id, title, content):
     query = '''
         UPDATE posts
         SET title = %s, content = %s
-        WHERE post_id = %d
+        WHERE post_id = %s
     '''
     cu.execute(query, (title, content, post_id))
     cn.commit()

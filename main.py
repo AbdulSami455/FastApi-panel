@@ -177,22 +177,37 @@ def deletearticleby_id(article_id:int):
     op.deletearticle(article_id)
 
 @app.post("/add-post", response_class=JSONResponse)
-def add_post_endpoint(user_id: int, title: str, content: str):
+def add_post_endpoint(
+    user_id: int = Form(...),
+    title: str = Form(...),
+    content: str = Form(...),
+):
     op.add_post(user_id, title, content)
     return JSONResponse(content={"message": "Post added successfully."}, status_code=200)
 
 @app.post("/add-article", response_class=JSONResponse)
-def add_article_endpoint(user_id: int, title: str, content: str):
+def add_article_endpoint(
+    user_id: int = Form(...),
+    title: str = Form(...),
+    content: str = Form(...),
+):
     op.add_article(user_id, title, content)
     return JSONResponse(content={"message": "Article added successfully."}, status_code=200)
 
 @app.put("/edit-post/{post_id}", response_class=JSONResponse)
-def edit_post_endpoint(post_id: int, title: str, content: str):
+def edit_post_endpoint(
+    post_id: int,
+    title: str = Form(...),
+    content: str = Form(...),
+):
     op.edit_post(post_id, title, content)
     return JSONResponse(content={"message": f"Post with post_id {post_id} edited successfully."}, status_code=200)
 
 @app.put("/edit-article/{article_id}", response_class=JSONResponse)
-def edit_article_endpoint(article_id: int, title: str, content: str):
+def edit_article_endpoint(
+    article_id: int,
+    title: str = Form(...),
+    content: str = Form(...),
+):
     op.edit_article(article_id, title, content)
     return JSONResponse(content={"message": f"Article with article_id {article_id} edited successfully."}, status_code=200)
-
