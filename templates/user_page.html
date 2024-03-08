@@ -86,6 +86,71 @@
     #saveEdit:hover {
       background-color: #218838;
     }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 20% auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      width: 80%;
+      max-width: 600px;
+    }
+
+    /* Close Button */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Buttons */
+    .add-button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .save-button {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .add-button:hover,
+    .save-button:hover {
+      background-color: #0056b3;
+    }
   </style>
   <body>
     <!-- Posts Section -->
@@ -98,6 +163,11 @@
         align-items: center;
       "
     >
+      <!-- Add Post Button -->
+      <button id="addPostButton" class="add-button">Add New Post</button>
+
+      <!-- Add Article Button -->
+      <button id="addArticleButton" class="add-button">Add New Article</button>
       <!-- Posts Section -->
       <div class="post-container">
         <h3 id="postsTitle">My Posts</h3>
@@ -109,6 +179,39 @@
         <h3>My Articles</h3>
 
         <div id="articles"></div>
+      </div>
+    </div>
+
+    <!-- Modal for adding a new post -->
+    <!-- Modal for adding a new post -->
+    <div id="addPostModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closePostModal">&times;</span>
+        <h2>Add New Post</h2>
+        <input type="text" id="newPostTitle" placeholder="Enter Post Title" />
+        <textarea
+          id="newPostContent"
+          placeholder="Enter Post Content"
+        ></textarea>
+        <button id="savePost" class="save-button">Save Post</button>
+      </div>
+    </div>
+
+    <!-- Modal for adding a new article -->
+    <div id="addArticleModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeArticleModal">&times;</span>
+        <h2>Add New Article</h2>
+        <input
+          type="text"
+          id="newArticleTitle"
+          placeholder="Enter Article Title"
+        />
+        <textarea
+          id="newArticleContent"
+          placeholder="Enter Article Content"
+        ></textarea>
+        <button id="saveArticle" class="save-button">Save Article</button>
       </div>
     </div>
 
@@ -161,9 +264,9 @@
             })
               .then((response) => response.json())
               .then((data) => {
-				articles = data
-				displayArticlesAndPosts(articles, posts);
-			});
+                articles = data;
+                displayArticlesAndPosts(articles, posts);
+              });
           });
 
         function displayArticlesAndPosts(articles, posts) {
@@ -286,6 +389,101 @@
 
           window.location.reload();
         }
+
+        document
+          .getElementById("addPostButton")
+          .addEventListener("click", function () {
+            document.getElementById("addPostModal").style.display = "block";
+          });
+
+        // Event listener for adding a new article
+        document
+          .getElementById("addArticleButton")
+          .addEventListener("click", function () {
+            document.getElementById("addArticleModal").style.display = "block";
+          });
+
+        // Event listener for closing the add post modal
+        document
+          .getElementById("closePostModal")
+          .addEventListener("click", function () {
+            document.getElementById("addPostModal").style.display = "none";
+          });
+
+        // Event listener for closing the add article modal
+        document
+          .getElementById("closeArticleModal")
+          .addEventListener("click", function () {
+            document.getElementById("addArticleModal").style.display = "none";
+          });
+
+        // Function to add a new post
+        document
+          .getElementById("savePost")
+          .addEventListener("click", function () {
+            const title = document.getElementById("newPostTitle").value;
+            const content = document.getElementById("newPostContent").value;
+
+            // You can perform validation here before adding the post
+
+            fetch(`http://localhost:8000/add-post`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                user_id: userId,
+                title: title,
+                content: content,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+              });
+
+            // Clear input fields
+            document.getElementById("newPostTitle").value = "";
+            document.getElementById("newPostContent").value = "";
+
+            // You can also update the UI to reflect the new post
+            // For simplicity, I'm reloading the page here
+            window.location.reload();
+          });
+
+        // Function to add a new article
+        document
+          .getElementById("saveArticle")
+          .addEventListener("click", function () {
+            const title = document.getElementById("newArticleTitle").value;
+            const content = document.getElementById("newArticleContent").value;
+
+            // You can perform validation here before adding the article
+
+            fetch(`http://localhost:8000/add-article`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                user_id: userId,
+                title: title,
+                content: content,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+              });
+
+            // Clear input fields
+            document.getElementById("newArticleTitle").value = "";
+            document.getElementById("newArticleContent").value = "";
+
+            // You can also update the UI to reflect the new article
+            // For simplicity, I'm reloading the page here
+            window.location.reload();
+          });
       });
     </script>
   </body>
