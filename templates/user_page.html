@@ -154,6 +154,24 @@
   </style>
   <body>
     <!-- Posts Section -->
+
+    <div class="container" style="display: flex; justify-content: flex-end">
+      <button
+        style="
+          background-color: red;
+          color: white;
+          border: none;
+          padding: 5px 10px;
+          border-radius: 4px;
+          cursor: pointer;
+          margin: 10px;
+        "
+        id="changepass"
+      >
+        Change Password
+      </button>
+    </div>
+
     <div
       class="container"
       style="
@@ -235,23 +253,9 @@
         let editid;
         let edittype;
 
-        let articles = [
-          {
-            id: 1,
-            title: "Article 1",
-            content:
-              "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam cum rerum dicta adipisci laudantium architecto, ullam recusandae consequuntur beatae non ea quaerat sapiente earum maxime autem voluptatem veritatis possimus sint eligendi officia consectetur delectus!",
-          },
-        ];
+        let articles = [];
 
-        let posts = [
-          {
-            id: 1,
-            title: "Post 1",
-            content:
-              "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam cum rerum dicta adipisci laudantium architecto, ullam recusandae consequuntur beatae non ea quaerat sapiente earum maxime autem voluptatem veritatis possimus sint eligendi officia consectetur delectus!",
-          },
-        ];
+        let posts = [];
 
         fetch(`http://localhost:8000/user/${userId}/posts`, {
           method: "GET",
@@ -267,6 +271,31 @@
                 articles = data;
                 displayArticlesAndPosts(articles, posts);
               });
+          });
+
+        document
+          .getElementById("changepass")
+          .addEventListener("click", function () {
+            // Prompt the user to enter the new password
+            var newPassword = prompt("Please enter your new password:");
+
+            // Check if the user entered a password
+            if (newPassword !== null) {
+              // Send the new password via fetch
+              fetch(`http://localhost:8000/change-password`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({
+                  user_id: userId, // Assuming userId is defined somewhere in your code
+                  new_password: newPassword,
+                }),
+              }).then((response)=> {alert("password changed successfully")});
+            } else {
+              // Handle the case where the user cancels the prompt
+              console.log("User canceled the password change.");
+            }
           });
 
         function displayArticlesAndPosts(articles, posts) {
@@ -359,7 +388,7 @@
 
             // Perform the update operation using your API or other methods
             // For example, you can send a request to update the item on the server
-			  window.location.reload(); 
+            window.location.reload();
             // Close the edit modal
             document.getElementById("editModal").style.display = "none";
           });
