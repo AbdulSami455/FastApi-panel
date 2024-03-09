@@ -5,7 +5,7 @@ conn = mysql.connector.connect(
     host="localhost",
     user="usernew",
     password="yourpassword",
-    database="database1",
+    database="database2",
 )
 
 # Create a cursor object to execute SQL queries

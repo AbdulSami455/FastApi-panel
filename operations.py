@@ -136,13 +136,22 @@ def deleteposts_by_user_id(user_id: int):
     print(f"All posts by user_id {user_id} deleted successfully.")
 
 def delete_user(user_id: int):
-    query = '''
-        DELETE FROM users
-        WHERE user_id = %s
-    '''
-    cu.execute(query, (user_id,))
-    cn.commit()
-    print(f"User with user_id {user_id} deleted successfully.")
+    try:
+        # Retrieve related records from other tables
+        related_tables = ["articles", "posts"]
+        for table in related_tables:
+            cu.execute(f"DELETE FROM {table} WHERE user_id = %s", (user_id,))
+            cn.commit()
+
+        # Finally, delete the user
+        cu.execute("DELETE FROM users WHERE user_id = %s", (user_id,))
+        cn.commit()
+
+        print(f"User with user_id {user_id} deleted successfully.")
+    except Exception as e:
+        print(f"Error deleting user: {str(e)}")
+
+
 
 def get_titles_and_contents_by_user_id_articles(user_id: int) -> List[dict]:
     query = '''

@@ -23,7 +23,7 @@ CREATE TABLE articles (
     user_id INT,
     title TEXT NOT NULL,
     content TEXT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE posts (
@@ -31,5 +31,5 @@ CREATE TABLE posts (
     user_id INT,
     title TEXT NOT NULL,
     content TEXT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );

@@ -25,6 +25,10 @@
         <option value="">Select a user...</option>
       </select>
 
+	  <button id="deleteUser" style="display: none;">
+		Delete User
+	  </button>
+
       <!-- Posts Section -->
       <div class="mb-8">
         <h3 class="text-2xl font-semibold mb-4 text-gray-700" id="">Posts</h3>
@@ -75,27 +79,7 @@
               option.value = user;
               option.textContent = user;
 
-              // Create a delete button for each user
-              const deleteButton = document.createElement("button");
-              deleteButton.textContent = "Delete";
-              deleteButton.addEventListener("click", () => {
-                fetch(`http://localhost:8000/user_id/${user}`, {
-                  method: "GET",
-                })
-				.then((response)=>response.json())
-				.then((data)=>{
-					const user_id = data.user_id; 
-					fetch(`http://localhost:8000/user/${user_id}`, {
-						method: 'DELETE'
-					})
-					.then((response)=>response.json())
-					.then((data)=>{console.log('user deleted successfully')})
-					.catch(error => console.log(error)); 
-				})
-              });
-
               // Append the delete button to the option element
-              option.appendChild(deleteButton);
               dropdown.appendChild(option);
 			  
             });
@@ -114,6 +98,21 @@
             .then((response) => response.json())
             .then((data) => {
               const selectedUserId = data.user_id;
+
+			  const delUser = document.getElementById('deleteUser'); 
+			  delUser.style.display = 'block'; 
+			  delUser.style.backgroundColor = 'red'
+			  delUser.style.color = 'white'
+			  delUser.style.padding = '5px'
+			  delUser.style.borderRadius = '5px'
+
+			  delUser.addEventListener('click', function(){
+				fetch(`http://localhost:8000/user/${selectedUserId}`, {
+					method: 'DELETE'
+				}).then((response)=> response.json()); 
+
+				window.location.reload(); 
+			  })
 
               fetch(`http://localhost:8000/user/${selectedUserId}/posts`, {
                 method: "GET",
@@ -143,6 +142,8 @@
                     deleteButton.style.marginTop = "5px"; // Add margin for spacing
                     deleteButton.style.backgroundColor = "#ff0000"; // Change background color
                     deleteButton.style.color = "#fff"; // Change text color
+					deleteButton.style.borderRadius = '3px'; 
+					deleteButton.style.padding = '5px'; 
 
                     // Add event listener to delete button
                     deleteButton.addEventListener("click", async () => {
