@@ -25,9 +25,7 @@
         <option value="">Select a user...</option>
       </select>
 
-	  <button id="deleteUser" style="display: none;">
-		Delete User
-	  </button>
+      <button id="deleteUser" style="display: none">Delete User</button>
 
       <!-- Posts Section -->
       <div class="mb-8">
@@ -44,9 +42,12 @@
     <script>
       const delPost = async (post_id) => {
         console.log(post_id);
-        let response = await fetch(`http://localhost:8000/posts/post/${post_id}`, {
-          method: "DELETE",
-        });
+        let response = await fetch(
+          `http://localhost:8000/posts/post/${post_id}`,
+          {
+            method: "DELETE",
+          }
+        );
         response = await response.json();
       };
       const delArticle = async (article_id) => {
@@ -81,7 +82,6 @@
 
               // Append the delete button to the option element
               dropdown.appendChild(option);
-			  
             });
           })
           .catch((error) => {
@@ -99,20 +99,24 @@
             .then((data) => {
               const selectedUserId = data.user_id;
 
-			  const delUser = document.getElementById('deleteUser'); 
-			  delUser.style.display = 'block'; 
-			  delUser.style.backgroundColor = 'red'
-			  delUser.style.color = 'white'
-			  delUser.style.padding = '5px'
-			  delUser.style.borderRadius = '5px'
+              const delUser = document.getElementById("deleteUser");
+              delUser.style.display = "block";
+              delUser.style.backgroundColor = "red";
+              delUser.style.color = "white";
+              delUser.style.padding = "5px";
+              delUser.style.borderRadius = "5px";
 
-			  delUser.addEventListener('click', function(){
-				fetch(`http://localhost:8000/user/${selectedUserId}`, {
-					method: 'DELETE'
-				}).then((response)=> response.json()); 
+              delUser.addEventListener("click", function () {
+                if (
+                  confirm(`Are you sure to delete user ${selectedUserName}?`)
+                ) {
+                  fetch(`http://localhost:8000/user/${selectedUserId}`, {
+                    method: "DELETE",
+                  }).then((response) => response.json());
+                }
 
-				window.location.reload(); 
-			  })
+                window.location.reload();
+              });
 
               fetch(`http://localhost:8000/user/${selectedUserId}/posts`, {
                 method: "GET",
@@ -142,8 +146,8 @@
                     deleteButton.style.marginTop = "5px"; // Add margin for spacing
                     deleteButton.style.backgroundColor = "#ff0000"; // Change background color
                     deleteButton.style.color = "#fff"; // Change text color
-					deleteButton.style.borderRadius = '3px'; 
-					deleteButton.style.padding = '5px'; 
+                    deleteButton.style.borderRadius = "3px";
+                    deleteButton.style.padding = "5px";
 
                     // Add event listener to delete button
                     deleteButton.addEventListener("click", async () => {
