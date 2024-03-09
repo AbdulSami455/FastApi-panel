@@ -55,6 +55,19 @@ def check_user_credentials(email, password):
             return result[0]
 
     return False
+def change_user_password(user_id, new_password):
+    hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+    
+    query = '''
+        UPDATE users
+        SET hashed_password = %s
+        WHERE user_id = %s
+    '''
+    
+    cu.execute(query, (hashed_password, user_id))
+    cn.commit()
+    
+    print("Password changed successfully.")
 def add_admin(username, email, password):
     if not check_admin_email_exists(email):
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())

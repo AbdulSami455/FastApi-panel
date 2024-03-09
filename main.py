@@ -211,3 +211,17 @@ def edit_article_endpoint(
 ):
     op.edit_article(article_id, title, content)
     return JSONResponse(content={"message": f"Article with article_id {article_id} edited successfully."}, status_code=200)
+
+@app.post("/change-password", response_class=JSONResponse)
+def change_password_endpoint(
+    user_id: int = Form(...),
+    new_password: str = Form(...),
+):
+    try:
+        # Call the existing function to change the user password
+        op.change_user_password(user_id, new_password)
+
+        return JSONResponse(content={"message": "Password changed successfully"}, status_code=200)
+
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)
