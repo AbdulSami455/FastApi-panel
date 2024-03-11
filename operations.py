@@ -120,6 +120,16 @@ def getuser_id_byusername(username: str) -> Optional[int]:
 
     return result[0] if result else None
 
+
+def getusername_by_id(userid:int ):
+  query='''
+select username from users 
+where user_id =?
+'''
+  cu.execute(query,(userid,))
+  result=cu.fetchone()
+  return result[0] if result else None
+
 def get_titles_and_contents_by_user_id(user_id: int) -> List[dict]:
     query = '''
         SELECT post_id, title, content FROM posts

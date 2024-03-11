@@ -234,3 +234,8 @@ def change_password_endpoint(
 
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
+
+@app.get("/username/{user_id}", response_class=JSONResponse)
+def getusernamebyid(user_id: int):
+    username = op.getusername_by_id(user_id)
+    return JSONResponse(content={"username": username}, status_code=200)
