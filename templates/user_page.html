@@ -248,7 +248,8 @@
         // Split the URL by '/'
         const parts = url.split("/");
         // The user ID is expected to be the last part of the URL
-        const userId = parts[parts.length - 1];
+        const userId = "{{ user_id }}";
+		console.log(userId)
 
         let editid;
         let edittype;

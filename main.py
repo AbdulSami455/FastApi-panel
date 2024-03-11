@@ -8,6 +8,9 @@ from fastapi.templating import Jinja2Templates
 import operations as op
 from fastapi.security import APIKeyQuery
 from typing import List, Optional
+from starlette.requests import Request as StarletteRequest
+from starlette.middleware.sessions import SessionMiddleware
+
 
 # comment
 
@@ -30,26 +33,32 @@ app.add_middleware(
 def login_page(request: _fastapi.Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
-@app.get("/user_page/{user_id}", response_class=HTMLResponse)
-def user_page(request: _fastapi.Request, user_id: int):
-    print("hello")
-    # Fetch user details or any other necessary data based on user_id
-    # Render the user page template with the fetched details
-    return templates.TemplateResponse("user_page.html", {"request": request, "user_id": user_id})
+app.add_middleware(SessionMiddleware, secret_key="some-random-key")
 
+templates = Jinja2Templates(directory="templates")
+
+# Use sessions to store user_id
 @app.post("/login", response_class=HTMLResponse)
 def login(request: _fastapi.Request, email: str = Form(...), password: str = Form(...)):
- user_id = op.check_user_credentials(email, password)
- print(user_id)
- if user_id is not False:
-        # If credentils are correct, redirect to register page
-    print("Crendtails are true")
-    return RedirectResponse("/user_page/{}".format(user_id),  status_code=303)
+    user_id = op.check_user_credentials(email, password)
+    if user_id is not False:
+        # Store user_id in session
+        request.session['user_id'] = user_id
+        return RedirectResponse("/user_page",  status_code=303)
+    else:
+        # Handle invalid credentials
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
- else:
-        # If credentials are incorrect, reload login page
-    print("Credentails are false")
-    return templates.TemplateResponse("login.html", {"request": request, "message": "Invalid email or password"})
+@app.get("/user_page", response_class=HTMLResponse)
+def user_page(request: _fastapi.Request):
+    # Fetch user details or any other necessary data based on session user_id
+    user_id = request.session.get('user_id')
+    if user_id is None:
+        # Handle if user_id is not found in session
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    
+    # Render the user page template with the fetched details
+    return templates.TemplateResponse("user_page.html", {"request": request, "user_id": user_id})
 @app.get("/register", response_class=HTMLResponse)
 def register_page(request: _fastapi.Request):
     return templates.TemplateResponse("register.html", {"request": request})
