@@ -1,0 +1,213 @@
+2024-03-13 02:04:27,686 - INFO - Started server process [20446]
+2024-03-13 02:04:27,687 - INFO - Waiting for application startup.
+2024-03-13 02:04:27,688 - INFO - Application startup complete.
+2024-03-13 02:04:27,789 - INFO - Shutting down
+2024-03-13 02:04:27,890 - INFO - Waiting for application shutdown.
+2024-03-13 02:04:27,892 - INFO - Application shutdown complete.
+2024-03-13 02:04:27,892 - INFO - Finished server process [20446]
+2024-03-13 02:04:29,685 - INFO - Started server process [20459]
+2024-03-13 02:04:29,686 - INFO - Waiting for application startup.
+2024-03-13 02:04:29,687 - INFO - Application startup complete.
+2024-03-13 02:04:37,919 - INFO - Shutting down
+2024-03-13 02:04:38,021 - INFO - Waiting for application shutdown.
+2024-03-13 02:04:38,022 - INFO - Application shutdown complete.
+2024-03-13 02:04:38,022 - INFO - Finished server process [20459]
+2024-03-13 02:04:41,686 - INFO - Started server process [20571]
+2024-03-13 02:04:41,689 - INFO - Waiting for application startup.
+2024-03-13 02:04:41,692 - INFO - Application startup complete.
+2024-03-13 02:06:44,001 - INFO - Shutting down
+2024-03-13 02:06:44,102 - INFO - Waiting for application shutdown.
+2024-03-13 02:06:44,103 - INFO - Application shutdown complete.
+2024-03-13 02:06:44,104 - INFO - Finished server process [20571]
+2024-03-13 02:06:50,451 - INFO - Started server process [21231]
+2024-03-13 02:06:50,452 - INFO - Waiting for application startup.
+2024-03-13 02:06:50,453 - INFO - Application startup complete.
+2024-03-13 02:06:51,658 - INFO - Shutting down
+2024-03-13 02:06:51,759 - INFO - Waiting for application shutdown.
+2024-03-13 02:06:51,760 - INFO - Application shutdown complete.
+2024-03-13 02:06:51,760 - INFO - Finished server process [21231]
+2024-03-13 02:06:53,344 - INFO - Started server process [21273]
+2024-03-13 02:06:53,345 - INFO - Waiting for application startup.
+2024-03-13 02:06:53,346 - INFO - Application startup complete.
+2024-03-13 02:06:54,553 - INFO - Shutting down
+2024-03-13 02:06:54,655 - INFO - Waiting for application shutdown.
+2024-03-13 02:06:54,656 - INFO - Application shutdown complete.
+2024-03-13 02:06:54,657 - INFO - Finished server process [21273]
+2024-03-13 02:06:56,133 - INFO - Started server process [21285]
+2024-03-13 02:06:56,134 - INFO - Waiting for application startup.
+2024-03-13 02:06:56,135 - INFO - Application startup complete.
+2024-03-13 02:07:01,657 - INFO - Shutting down
+2024-03-13 02:07:01,758 - INFO - Waiting for application shutdown.
+2024-03-13 02:07:01,760 - INFO - Application shutdown complete.
+2024-03-13 02:07:01,761 - INFO - Finished server process [21285]
+2024-03-13 02:07:11,567 - INFO - Started server process [21432]
+2024-03-13 02:07:11,568 - INFO - Waiting for application startup.
+2024-03-13 02:07:11,570 - INFO - Application startup complete.
+2024-03-13 02:07:58,744 - INFO - Shutting down
+2024-03-13 02:07:58,846 - INFO - Waiting for application shutdown.
+2024-03-13 02:07:58,847 - INFO - Application shutdown complete.
+2024-03-13 02:07:58,847 - INFO - Finished server process [21432]
+2024-03-13 02:08:00,533 - INFO - Started server process [21728]
+2024-03-13 02:08:00,534 - INFO - Waiting for application startup.
+2024-03-13 02:08:00,535 - INFO - Application startup complete.
+2024-03-13 02:08:01,639 - INFO - Shutting down
+2024-03-13 02:08:01,740 - INFO - Waiting for application shutdown.
+2024-03-13 02:08:01,741 - INFO - Application shutdown complete.
+2024-03-13 02:08:01,741 - INFO - Finished server process [21728]
+2024-03-13 02:08:03,367 - INFO - Started server process [21762]
+2024-03-13 02:08:03,367 - INFO - Waiting for application startup.
+2024-03-13 02:08:03,368 - INFO - Application startup complete.
+2024-03-13 02:08:09,793 - INFO - Shutting down
+2024-03-13 02:08:09,894 - INFO - Waiting for application shutdown.
+2024-03-13 02:08:09,895 - INFO - Application shutdown complete.
+2024-03-13 02:08:09,895 - INFO - Finished server process [21762]
+2024-03-13 02:08:11,512 - INFO - Started server process [21824]
+2024-03-13 02:08:11,513 - INFO - Waiting for application startup.
+2024-03-13 02:08:11,514 - INFO - Application startup complete.
+2024-03-13 02:08:13,925 - INFO - Shutting down
+2024-03-13 02:08:14,026 - INFO - Waiting for application shutdown.
+2024-03-13 02:08:14,027 - INFO - Application shutdown complete.
+2024-03-13 02:08:14,028 - INFO - Finished server process [21824]
+2024-03-13 02:08:15,699 - INFO - Started server process [21871]
+2024-03-13 02:08:15,700 - INFO - Waiting for application startup.
+2024-03-13 02:08:15,701 - INFO - Application startup complete.
+2024-03-13 02:08:36,879 - INFO - Shutting down
+2024-03-13 02:08:36,980 - INFO - Waiting for application shutdown.
+2024-03-13 02:08:36,981 - INFO - Application shutdown complete.
+2024-03-13 02:08:36,981 - INFO - Finished server process [21871]
+2024-03-13 02:08:38,792 - INFO - Started server process [22041]
+2024-03-13 02:08:38,793 - INFO - Waiting for application startup.
+2024-03-13 02:08:38,794 - INFO - Application startup complete.
+2024-03-13 02:08:39,296 - INFO - Shutting down
+2024-03-13 02:08:39,397 - INFO - Waiting for application shutdown.
+2024-03-13 02:08:39,398 - INFO - Application shutdown complete.
+2024-03-13 02:08:39,399 - INFO - Finished server process [22041]
+2024-03-13 02:08:42,269 - INFO - Started server process [22089]
+2024-03-13 02:08:42,270 - INFO - Waiting for application startup.
+2024-03-13 02:08:42,271 - INFO - Application startup complete.
+2024-03-13 02:08:42,874 - INFO - Shutting down
+2024-03-13 02:08:42,975 - INFO - Waiting for application shutdown.
+2024-03-13 02:08:42,976 - INFO - Application shutdown complete.
+2024-03-13 02:08:42,977 - INFO - Finished server process [22089]
+2024-03-13 02:08:44,594 - INFO - Started server process [22113]
+2024-03-13 02:08:44,594 - INFO - Waiting for application startup.
+2024-03-13 02:08:44,595 - INFO - Application startup complete.
+2024-03-13 02:08:52,019 - INFO - Shutting down
+2024-03-13 02:08:52,120 - INFO - Waiting for application shutdown.
+2024-03-13 02:08:52,121 - INFO - Application shutdown complete.
+2024-03-13 02:08:52,122 - INFO - Finished server process [22113]
+2024-03-13 02:08:53,974 - INFO - Started server process [22182]
+2024-03-13 02:08:53,975 - INFO - Waiting for application startup.
+2024-03-13 02:08:53,976 - INFO - Application startup complete.
+2024-03-13 02:08:54,077 - INFO - Shutting down
+2024-03-13 02:08:54,178 - INFO - Waiting for application shutdown.
+2024-03-13 02:08:54,179 - INFO - Application shutdown complete.
+2024-03-13 02:08:54,180 - INFO - Finished server process [22182]
+2024-03-13 02:08:57,532 - INFO - Started server process [22230]
+2024-03-13 02:08:57,533 - INFO - Waiting for application startup.
+2024-03-13 02:08:57,534 - INFO - Application startup complete.
+2024-03-13 02:08:58,237 - INFO - Shutting down
+2024-03-13 02:08:58,339 - INFO - Waiting for application shutdown.
+2024-03-13 02:08:58,339 - INFO - Application shutdown complete.
+2024-03-13 02:08:58,340 - INFO - Finished server process [22230]
+2024-03-13 02:08:59,761 - INFO - Started server process [22255]
+2024-03-13 02:08:59,762 - INFO - Waiting for application startup.
+2024-03-13 02:08:59,762 - INFO - Application startup complete.
+2024-03-13 02:10:15,827 - INFO - Shutting down
+2024-03-13 02:10:15,929 - INFO - Waiting for application shutdown.
+2024-03-13 02:10:15,930 - INFO - Application shutdown complete.
+2024-03-13 02:10:15,931 - INFO - Finished server process [22255]
+2024-03-13 02:10:17,716 - INFO - Started server process [22679]
+2024-03-13 02:10:17,717 - INFO - Waiting for application startup.
+2024-03-13 02:10:17,718 - INFO - Application startup complete.
+2024-03-13 02:10:37,787 - INFO - Shutting down
+2024-03-13 02:10:37,888 - INFO - Waiting for application shutdown.
+2024-03-13 02:10:37,889 - INFO - Application shutdown complete.
+2024-03-13 02:10:37,889 - INFO - Finished server process [22679]
+2024-03-13 02:10:43,313 - INFO - Started server process [22855]
+2024-03-13 02:10:43,314 - INFO - Waiting for application startup.
+2024-03-13 02:10:43,315 - INFO - Application startup complete.
+2024-03-13 02:11:17,034 - INFO - Shutting down
+2024-03-13 02:11:17,135 - INFO - Waiting for application shutdown.
+2024-03-13 02:11:17,136 - INFO - Application shutdown complete.
+2024-03-13 02:11:17,136 - INFO - Finished server process [22855]
+2024-03-13 02:11:19,274 - INFO - Started server process [23058]
+2024-03-13 02:11:19,276 - INFO - Waiting for application startup.
+2024-03-13 02:11:19,277 - INFO - Application startup complete.
+2024-03-13 02:12:05,137 - INFO - Shutting down
+2024-03-13 02:12:05,238 - INFO - Waiting for application shutdown.
+2024-03-13 02:12:05,239 - INFO - Application shutdown complete.
+2024-03-13 02:12:05,239 - INFO - Finished server process [23058]
+2024-03-13 02:12:07,130 - INFO - Started server process [23357]
+2024-03-13 02:12:07,131 - INFO - Waiting for application startup.
+2024-03-13 02:12:07,132 - INFO - Application startup complete.
+2024-03-13 02:12:21,711 - INFO - Authentication - User 1 logged in from 127.0.0.1
+2024-03-13 02:12:21,732 - INFO - Transaction - User 1: Accessed user page
+2024-03-13 02:13:28,521 - INFO - Shutting down
+2024-03-13 02:13:28,623 - INFO - Waiting for application shutdown.
+2024-03-13 02:13:28,624 - INFO - Application shutdown complete.
+2024-03-13 02:13:28,624 - INFO - Finished server process [23357]
+2024-03-13 02:13:30,349 - INFO - Started server process [23884]
+2024-03-13 02:13:30,349 - INFO - Waiting for application startup.
+2024-03-13 02:13:30,351 - INFO - Application startup complete.
+2024-03-13 02:13:48,714 - INFO - Shutting down
+2024-03-13 02:13:48,815 - INFO - Waiting for application shutdown.
+2024-03-13 02:13:48,816 - INFO - Application shutdown complete.
+2024-03-13 02:13:48,817 - INFO - Finished server process [23884]
+2024-03-13 02:14:05,210 - INFO - Started server process [24129]
+2024-03-13 02:14:05,210 - INFO - Waiting for application startup.
+2024-03-13 02:14:05,211 - INFO - Application startup complete.
+2024-03-13 02:16:46,975 - INFO - Shutting down
+2024-03-13 02:16:47,075 - INFO - Waiting for application shutdown.
+2024-03-13 02:16:47,076 - INFO - Application shutdown complete.
+2024-03-13 02:16:47,076 - INFO - Finished server process [24129]
+2024-03-13 02:16:49,834 - INFO - Started server process [24992]
+2024-03-13 02:16:49,835 - INFO - Waiting for application startup.
+2024-03-13 02:16:49,836 - INFO - Application startup complete.
+2024-03-13 02:16:51,846 - INFO - Shutting down
+2024-03-13 02:16:51,947 - INFO - Waiting for application shutdown.
+2024-03-13 02:16:51,948 - INFO - Application shutdown complete.
+2024-03-13 02:16:51,949 - INFO - Finished server process [24992]
+2024-03-13 02:16:53,677 - INFO - Started server process [25022]
+2024-03-13 02:16:53,678 - INFO - Waiting for application startup.
+2024-03-13 02:16:53,679 - INFO - Application startup complete.
+2024-03-13 02:18:51,703 - INFO - Shutting down
+2024-03-13 02:18:51,804 - INFO - Waiting for application shutdown.
+2024-03-13 02:18:51,806 - INFO - Application shutdown complete.
+2024-03-13 02:18:51,806 - INFO - Finished server process [25022]
+2024-03-13 02:18:54,673 - INFO - Started server process [25686]
+2024-03-13 02:18:54,674 - INFO - Waiting for application startup.
+2024-03-13 02:18:54,675 - INFO - Application startup complete.
+2024-03-13 02:20:00,313 - INFO - Shutting down
+2024-03-13 02:20:00,414 - INFO - Waiting for application shutdown.
+2024-03-13 02:20:00,415 - INFO - Application shutdown complete.
+2024-03-13 02:20:00,416 - INFO - Finished server process [25686]
+2024-03-13 02:20:03,016 - INFO - Started server process [26076]
+2024-03-13 02:20:03,017 - INFO - Waiting for application startup.
+2024-03-13 02:20:03,018 - INFO - Application startup complete.
+2024-03-13 02:24:05,901 - INFO - Transaction - User 1: Accessed user page
+2024-03-13 02:24:06,066 - ERROR - Failed to retrieve posts for user_id 1 with error: Recursive use of cursors not allowed.
+2024-03-13 02:24:06,067 - INFO - Username retrieved successfully for user_id 1
+2024-03-13 02:24:08,340 - INFO - Retrieved articles for user_id 1 successfully
+2024-03-13 02:24:36,295 - INFO - Transaction - User 1: Accessed user page
+2024-03-13 02:24:36,712 - INFO - Post added successfully
+2024-03-13 02:24:36,712 - INFO - Username retrieved successfully for user_id 1
+2024-03-13 02:24:36,718 - INFO - Retrieved posts for user_id 1 successfully
+2024-03-13 02:24:37,350 - INFO - Retrieved articles for user_id 1 successfully
+2024-03-13 02:29:08,554 - INFO - Shutting down
+2024-03-13 02:29:08,655 - INFO - Waiting for application shutdown.
+2024-03-13 02:29:08,661 - INFO - Application shutdown complete.
+2024-03-13 02:29:08,664 - INFO - Finished server process [26076]
+2024-03-13 02:29:10,348 - INFO - Started server process [29055]
+2024-03-13 02:29:10,349 - INFO - Waiting for application startup.
+2024-03-13 02:29:10,350 - INFO - Application startup complete.
+2024-03-13 02:29:35,621 - WARNING - Admin login failed for email: s@gmail.com
+2024-03-13 02:30:09,667 - INFO - Admin registration successful: s@gmail.com
+2024-03-13 02:30:56,186 - INFO - Admin Action - Admin logged in from 127.0.0.1
+2024-03-13 02:30:56,899 - INFO - Retrieved all usernames successfully
+2024-03-13 02:34:09,617 - INFO - Retrieved user_id for username 'Muhammad Muaz' successfully
+2024-03-13 02:34:09,643 - INFO - Retrieved posts for user_id 2 successfully
+2024-03-13 02:34:09,669 - INFO - Retrieved articles for user_id 2 successfully
+2024-03-13 02:34:11,294 - INFO - Retrieved user_id for username 'sami123' successfully
+2024-03-13 02:34:11,320 - INFO - Retrieved posts for user_id 1 successfully
+2024-03-13 02:34:11,346 - INFO - Retrieved articles for user_id 1 successfully
