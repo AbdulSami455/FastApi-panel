@@ -9,29 +9,72 @@ from fastapi.templating import Jinja2Templates
 import operations as op
 from fastapi.security import APIKeyQuery
 from typing import List, Optional
-from starlette.requests import Request as StarletteRequest
+from starlette.requests import Request
 from starlette.middleware.sessions import SessionMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
 
 
 logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Authentication logging
-def log_authentication(request: StarletteRequest, user_id: int):
+def log_authentication(request: Request, user_id: int):
     logging.info(f"Authentication - User {user_id} logged in from {request.client.host}")
 
 # Transactions logging
-def log_transaction(request: StarletteRequest, user_id: int, action: str):
+def log_transaction(request: Request, user_id: int, action: str):
     logging.info(f"Transaction - User {user_id}: {action} - IP: {request.client.host}")
 
 # Admin actions logging
-def log_admin_action(request: StarletteRequest, admin_action: str):
+def log_admin_action(request: Request, admin_action: str):
     logging.info(f"Admin Action - {admin_action} from {request.client.host}")
 templates = Jinja2Templates(directory="templates")
 
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+DEBUG_MODE = True
 
+# Custom middleware for error handling
+class ErrorHandlerMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        try:
+            response = await call_next(request)
+            return response
+        except HTTPException as exc:
+            return self.handle_http_exception(request, exc)
+        except Exception as exc:
+            return self.handle_generic_exception(request, exc)
+
+    def handle_http_exception(self, request: Request, exc: HTTPException):
+        if DEBUG_MODE:
+            # Include detailed stack trace
+            return JSONResponse(
+                status_code=exc.status_code,
+                content={"detail": exc.detail, "stack_trace": exc.__traceback__.as_list()}
+            )
+        else:
+            # Generic error message
+            return JSONResponse(
+                status_code=exc.status_code,
+                content={"detail": "An error occurred. Please try again later."}
+            )
+
+    def handle_generic_exception(self, request: Request, exc: Exception):
+        if DEBUG_MODE:
+            # Include detailed stack trace
+            return JSONResponse(
+                status_code=500,
+                content={"detail": "An error occurred. Please try again later.", "stack_trace": exc.__traceback__.as_list()}
+            )
+        else:
+            # Generic error message
+            return JSONResponse(
+                status_code=500,
+                content={"detail": "An error occurred. Please try again later."}
+            )
+
+# Apply the custom middleware
+app.add_middleware(ErrorHandlerMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

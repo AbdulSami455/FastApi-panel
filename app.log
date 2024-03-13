@@ -211,3 +211,20 @@
 2024-03-13 02:34:11,294 - INFO - Retrieved user_id for username 'sami123' successfully
 2024-03-13 02:34:11,320 - INFO - Retrieved posts for user_id 1 successfully
 2024-03-13 02:34:11,346 - INFO - Retrieved articles for user_id 1 successfully
+2024-03-14 02:15:56,368 - INFO - Started server process [14825]
+2024-03-14 02:15:56,374 - INFO - Waiting for application startup.
+2024-03-14 02:15:56,375 - INFO - Application startup complete.
+2024-03-14 02:15:59,185 - INFO - Shutting down
+2024-03-14 02:15:59,287 - INFO - Waiting for application shutdown.
+2024-03-14 02:15:59,288 - INFO - Application shutdown complete.
+2024-03-14 02:15:59,289 - INFO - Finished server process [14825]
+2024-03-14 02:16:00,750 - INFO - Started server process [14862]
+2024-03-14 02:16:00,751 - INFO - Waiting for application startup.
+2024-03-14 02:16:00,751 - INFO - Application startup complete.
+2024-03-14 02:19:30,862 - INFO - Started server process [16492]
+2024-03-14 02:19:30,866 - INFO - Waiting for application startup.
+2024-03-14 02:19:30,869 - INFO - Application startup complete.
+2024-03-14 02:25:33,579 - INFO - Shutting down
+2024-03-14 02:25:33,681 - INFO - Waiting for application shutdown.
+2024-03-14 02:25:33,683 - INFO - Application shutdown complete.
+2024-03-14 02:25:33,684 - INFO - Finished server process [16492]
